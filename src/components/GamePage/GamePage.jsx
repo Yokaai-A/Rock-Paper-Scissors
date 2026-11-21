@@ -4,14 +4,40 @@ import rock from '../../assets/Rock.png'
 import paper from '../../assets/Paper.png'
 import scissors from '../../assets/Scissors.png'
 
-function GamePage({ onBack }) {
+function GamePage({ onBack, onFinish }) {
     const [playerChoose, setPlayerChoose] = useState('rock');
     const [botChoose, setBotChoose] = useState('rock');
+    const [playerScore, setPlayerScore] = useState(0)
+    const [botScore, setBotScore] = useState(0)
     const [result, setResult] = useState('');
 
     function HandlePlay() {
+        if (playerScore === 3 || botScore === 3) {
+            return;
+        }
+
         const options = ['rock', 'paper', 'scissors']
-        setBotChoose(options[Math.floor(Math.random() * options.length)]);
+        const random = options[Math.floor(Math.random() * options.length)];
+        setBotChoose(random);
+
+        let newPlayerScore = playerScore;
+        let newBotScore = botScore;
+
+        if(random === playerChoose) {
+            setResult('TIE!');
+        } else if((playerChoose === 'rock' && random === 'scissors') || (playerChoose === 'paper' && random === 'rock') || (playerChoose === 'scissors' && random === 'paper')) {
+            newPlayerScore = playerScore + 1;
+            setPlayerScore(playerScore + 1);
+            setResult('You Win!');
+        } else {
+            newBotScore = botScore + 1
+            setBotScore(botScore + 1);
+            setResult('You lose!');
+        }
+
+        if(newPlayerScore === 3 || newBotScore === 3) {
+            setTimeout(() => onFinish(newPlayerScore, newBotScore), 1000);
+        }
     }
 
     const hands = {
@@ -23,6 +49,11 @@ function GamePage({ onBack }) {
     return (
         <div className="gamepage">
             <button className="back-button" onClick={onBack}>Back</button>
+
+            <div className="score">
+                <p>YOU {playerScore} : {botScore} BOT</p>
+                <p>{result}</p>
+            </div>
 
             <h1>Game Arena</h1>
             

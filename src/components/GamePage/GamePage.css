@@ -66,10 +66,12 @@
 }
 
 .player .handbox img {
+    position: relative;
     transform: rotate(-90deg) scaleX(-1);
     height: 700px;
     width: auto;
     top: 30%;
+    right: 0;
 }
 
 .bot h2 {
@@ -87,10 +89,12 @@
 }
 
 .bot .handbox img {
+    position: relative;
     transform: rotate(90deg);
     height: 700px;
     width: auto;
     top: 30%;
+    left: 0;
 }
 
 .handbox {
@@ -152,4 +156,12 @@
     left: 0;
     right: 0;
     cursor: pointer;
+}
+
+.score {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    color: white;
+    font-size: 25px;
 }
