@@ -1,0 +1,20 @@
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #31b7d9;
+  --border: #e5e4e7;
+
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+

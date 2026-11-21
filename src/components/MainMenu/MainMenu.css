@@ -1,0 +1,63 @@
+.mainmenu {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.mainmenu-middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+}
+
+.hand {
+    position: absolute;
+    bottom: 0;
+    height: 600px;
+    width: auto;
+}
+
+.rock {
+    left: 0%;
+}
+
+.scissors {
+    right: 0%;
+}
+
+.title-img {
+    width: 600px;
+    height: auto;
+    max-width: 90%;
+}
+
+.play-btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: #ffffff;
+    background: #2f4f5a;
+    border: none;
+    border-radius: 999px;
+    padding: 14px 56px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #1d343c; /* efek tebal ala tombol game */
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.play-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 #1d343c;
+}
+
+.play-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #1d343c; /* terlihat seperti ditekan */
+}
