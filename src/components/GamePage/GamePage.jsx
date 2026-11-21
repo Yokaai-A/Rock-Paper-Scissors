@@ -1,5 +1,5 @@
 import './GamePage.css';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import rock from '../../assets/Rock.png'
 import paper from '../../assets/Paper.png'
 import scissors from '../../assets/Scissors.png'
@@ -10,9 +10,10 @@ function GamePage({ onBack, onFinish }) {
     const [playerScore, setPlayerScore] = useState(0)
     const [botScore, setBotScore] = useState(0)
     const [result, setResult] = useState('');
+    const [isFinish, setisFinish] = useState(false);
 
     function HandlePlay() {
-        if (playerScore === 3 || botScore === 3) {
+        if (isFinish) {
             return;
         }
 
@@ -27,15 +28,16 @@ function GamePage({ onBack, onFinish }) {
             setResult('TIE!');
         } else if((playerChoose === 'rock' && random === 'scissors') || (playerChoose === 'paper' && random === 'rock') || (playerChoose === 'scissors' && random === 'paper')) {
             newPlayerScore = playerScore + 1;
-            setPlayerScore(playerScore + 1);
+            setPlayerScore(prev => prev + 1);
             setResult('You Win!');
         } else {
             newBotScore = botScore + 1
-            setBotScore(botScore + 1);
+            setBotScore(prev => prev + 1);
             setResult('You lose!');
         }
 
         if(newPlayerScore === 3 || newBotScore === 3) {
+            setisFinish(true);
             setTimeout(() => onFinish(newPlayerScore, newBotScore), 1000);
         }
     }
@@ -48,7 +50,7 @@ function GamePage({ onBack, onFinish }) {
 
     return (
         <div className="gamepage">
-            <button className="back-button" onClick={onBack}>Back</button>
+            <button className="back-button" disabled={isFinish} onClick={onBack}>Back</button>
 
             <div className="score">
                 <p>YOU {playerScore} : {botScore} BOT</p>
@@ -77,12 +79,12 @@ function GamePage({ onBack, onFinish }) {
                 <p>Choose your hand!</p>
 
                 <div className="choice-button">
-                    <button onClick={() => setPlayerChoose('rock')}>Rock</button>
-                    <button onClick={() => setPlayerChoose('paper')}>Paper</button>
-                    <button onClick={() => setPlayerChoose('scissors')}>Scissors</button>
+                    <button disabled={isFinish} onClick={() => setPlayerChoose('rock')}>Rock</button>
+                    <button disabled={isFinish} onClick={() => setPlayerChoose('paper')}>Paper</button>
+                    <button disabled={isFinish} onClick={() => setPlayerChoose('scissors')}>Scissors</button>
                 </div>
 
-                <button className="play-button" onClick={HandlePlay}>PLAY!</button>
+                <button disabled={isFinish} className="play-button" onClick={HandlePlay}>PLAY!</button>
             </div>
 
         </div>
