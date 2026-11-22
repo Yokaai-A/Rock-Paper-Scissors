@@ -25,11 +25,11 @@
 }
 
 .scoreboard .bot h2 {
-    color: rgb(207, 0, 0);
+    color: var(--red);
 }
 
 .scoreboard .player h2 {
-    color: rgb(11, 174, 11);
+    color: var(--green);
 }
 
 .scoreboard-side p {

@@ -39,7 +39,7 @@
     width: auto;
 }
 .player h2 {
-    color: rgb(11, 174, 11);
+    color: var(--green);
 }
     
 .player .handbox {
@@ -52,7 +52,7 @@
 }
 
 .bot h2 {
-    color: rgb(207, 0, 0);
+    color: var(--red);
 }
 
 .bot .handbox {

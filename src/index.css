@@ -5,8 +5,10 @@
   --border: #e5e4e7;
 
   --yellow: #FFD664;
-    --dark: #1F1A17;
-    --blue: rgb(7, 87, 178);
+  --dark: #1F1A17;
+  --blue: rgb(7, 87, 178);
+  --red: rgb(207, 0, 0);
+  --green: rgb(11, 174, 11);
   color-scheme: light dark;
   color: var(--text);
   background: var(--bg);
