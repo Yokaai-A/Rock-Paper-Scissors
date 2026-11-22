@@ -1,9 +1,12 @@
 :root {
-  --text: #6b6375;
+  --text: #ffffff;
   --text-h: #08060d;
-  --bg: #31b7d9;
+  --bg: #20b0d4;
   --border: #e5e4e7;
 
+  --yellow: #FFD664;
+    --dark: #1F1A17;
+    --blue: rgb(7, 87, 178);
   color-scheme: light dark;
   color: var(--text);
   background: var(--bg);
@@ -17,4 +20,22 @@ body {
   margin: 0;
 }
 
+.back-button {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-family: 'Fredoka', sans-serif;
+  background-color: var(--yellow);
+  color: #1F1A17;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 24px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  line-height: 1;
+}
 

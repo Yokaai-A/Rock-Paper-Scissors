@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import MainMenu from './components/MainMenu/MainMenu.jsx';
 import GamePage from './components/GamePage/GamePage.jsx';
-import ScoreBoard from './components/GamePage/ScoreBoard.jsx';
-import './App.css';
+import ScoreBoard from './components/ScoreBoard/ScoreBoard.jsx';
 
 function App() {
   const [currPage, setCurrPage] = useState('menu');
@@ -22,7 +21,7 @@ function App() {
       )}
       
       {currPage === 'scoreboard' && (
-        <ScoreBoard playerScore={finalScore.player} botScore={finalScore.bot} onBack={() => setCurrPage('menu')} />
+        <ScoreBoard playerScore={finalScore.player} botScore={finalScore.bot} onBack={() => setCurrPage('menu')} onPlayAgain={() => setCurrPage('game')} />
       )}
     </>
   )

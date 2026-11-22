@@ -8,34 +8,10 @@
     padding: 30px
 }
 
-.back-button {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    font-family: 'Fredoka', sans-serif;
-    background-color: #FFD664;
-    color: #1F1A17;
-    font-size: 16px;
-    font-weight: 500;
-    padding: 10px 24px;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    line-height: 1;
-}
-
 .gamepage h1 {
     margin-top: 40px;
     font-size: 48px;
-    color: white;
-}
-
-.handbox img {
-    width: 500px;
-    height: 80%;
+    color: var(--text);
 }
 
 .gamearea {
@@ -51,63 +27,41 @@
     gap: 15px;
 }
 
+.handbox {
+    position: absolute;
+    top: 60%;
+    display: block;
+    transform: translateY(-60%);
+}
+
+.handbox img {
+    height: min(700px, 50vw);
+    width: auto;
+}
 .player h2 {
     color: rgb(11, 174, 11);
 }
-
-.player .handbox{
-    position: absolute;
+    
+.player .handbox {
     right: 0;
-    width: auto;
-    height: auto;
-    display: block;
-
-    transform: translateY(-10%);
 }
 
 .player .handbox img {
-    position: relative;
     transform: rotate(-90deg) scaleX(-1);
-    height: 700px;
-    width: auto;
-    top: 30%;
-    right: 0;
+    height: min(700px, 50vw);
 }
 
 .bot h2 {
     color: rgb(207, 0, 0);
 }
 
-.bot .handbox{
-    position: absolute;
+.bot .handbox {
     left: 0;
-    width: auto;
-    height: auto;
-    display: block;
-
-    transform: translateY(-10%);
 }
 
 .bot .handbox img {
-    position: relative;
     transform: rotate(90deg);
-    height: 700px;
-    width: auto;
-    top: 30%;
-    left: 0;
-}
-
-.handbox {
-    width: 200px;
-    height: 400px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.handbox span {
-    font-size: 70px;
+    height: min(700px, 50vw);
 }
 
 .choice {
@@ -135,11 +89,12 @@
     font-weight: 500;
     border-radius: 10px;
     border: none;
-    background-color: rgb(7, 87, 178);
+    color: var(--text);
+        background-color: var(--blue);
 }
 
 .choice p {
-    color: white;
+    color: var(--text);
     font-size: 25px;
     margin-bottom: 10px;
 }
@@ -151,27 +106,85 @@
 
 .choice-button button:focus {
     background-color: white;
-    color: #1F1A17;
+    color: var(--dark);
 }
 
 .play-button {
+    color: #000000;
+        font-weight: 500;
     position: relative;
-    background-color: #FFD664;
-    color: #1F1A17;
-    font-weight: 600;
+    background-color: var(--yellow);
     border: none;
-    padding: 10px 180px;
+    padding: 10px 0;
     font-size: 20px;
     border-radius: 10px;
     left: 0;
     right: 0;
     cursor: pointer;
+    width: min(400px, 80vw);
+        font-family: 'Fredoka', sans-serif;
 }
 
 .score {
     position: absolute;
     top: 30px;
     right: 30px;
-    color: white;
+    color: var(--text);
     font-size: 25px;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateY(-60%);
+    }
+
+    50% {
+        transform: translateY(-70%);
+    }
+
+}
+
+.handbox.shake {
+    animation: shake 0.3s ease-in-out 3;
+}
+
+@media (max-width: 768px) {
+    .gamepage h1 {
+        font-size: 32px;
+    }
+
+    .score {
+        top: 10px;
+        right: 20px;
+        font-size: 18px;
+    }
+
+    .gamearea {
+        margin-top: 30px;
+    }
+
+    .handbox {
+        margin-top: 0px;
+    }
+
+    .choice-button {
+        gap: 10px;
+    }
+
+    .choice-button button {
+        font-size: 16px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 425px) {
+    .handbox {
+        top: 50%;
+    }
+
+    .score {
+        font-size: 14px;
+    }
 }

@@ -1,8 +1,17 @@
 import './GamePage.css';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import rock from '../../assets/Rock.png'
 import paper from '../../assets/Paper.png'
 import scissors from '../../assets/Scissors.png'
+import { getResult } from '../../../utils/GameLogic.js';
+
+const hands = {
+    'rock': rock,
+    'paper': paper,
+    'scissors': scissors
+}
+
+const WINNING_SCORE = 3;
 
 function GamePage({ onBack, onFinish }) {
     const [playerChoose, setPlayerChoose] = useState('rock');
@@ -10,23 +19,34 @@ function GamePage({ onBack, onFinish }) {
     const [playerScore, setPlayerScore] = useState(0)
     const [botScore, setBotScore] = useState(0)
     const [result, setResult] = useState('');
-    const [isFinish, setisFinish] = useState(false);
+    const [isFinish, setIsFinish] = useState(false);
+    const [isShaking, setIsShaking] = useState(false);
 
-    function HandlePlay() {
-        if (isFinish) {
+    function handlePlay() {
+        if (isFinish || isShaking) {
             return;
         }
+
+        setResult('');
+        setIsShaking(true);
+        setTimeout(showResult, 1000);
+    }
+
+    function showResult() {
+        setIsShaking(false);
 
         const options = ['rock', 'paper', 'scissors']
         const random = options[Math.floor(Math.random() * options.length)];
         setBotChoose(random);
 
+        const outputPerRound = getResult(playerChoose, random);
+
         let newPlayerScore = playerScore;
         let newBotScore = botScore;
 
-        if(random === playerChoose) {
+        if (outputPerRound === 'tie') {
             setResult('TIE!');
-        } else if((playerChoose === 'rock' && random === 'scissors') || (playerChoose === 'paper' && random === 'rock') || (playerChoose === 'scissors' && random === 'paper')) {
+        } else if (outputPerRound === 'win') {
             newPlayerScore = playerScore + 1;
             setPlayerScore(prev => prev + 1);
             setResult('You Win!');
@@ -36,24 +56,18 @@ function GamePage({ onBack, onFinish }) {
             setResult('You lose!');
         }
 
-        if(newPlayerScore === 3 || newBotScore === 3) {
-            setisFinish(true);
+        if (newPlayerScore === WINNING_SCORE || newBotScore === WINNING_SCORE) {
+            setIsFinish(true);
             setTimeout(() => onFinish(newPlayerScore, newBotScore), 1000);
         }
     }
 
-    const hands = {
-        'rock' : rock,
-        'paper' : paper,
-        'scissors' : scissors
-    }
-
     return (
         <div className="gamepage">
-            <button className="back-button" disabled={isFinish} onClick={onBack}>Back</button>
+            <button className="back-button" disabled={isFinish || isShaking} onClick={onBack}>Back</button>
 
             <div className="score">
-                <p>YOU {playerScore} : {botScore} BOT</p>
+                <p> BOT {botScore} : YOU {playerScore}</p>
                 <p>{result}</p>
             </div>
 
@@ -62,15 +76,15 @@ function GamePage({ onBack, onFinish }) {
             <div className="gamearea">
                 <div className="play-area bot">
                     <h2>BOT</h2>
-                    <div className="handbox">
-                        <img src={hands[botChoose]} alt={botChoose} />
+                    <div className={isShaking ? 'handbox shake' : 'handbox'}>
+                        <img src={isShaking ? hands.rock : hands[botChoose]} alt={botChoose} />
                     </div>
                 </div>
 
                 <div className="play-area player">
                     <h2>YOU</h2>
-                    <div className="handbox">
-                        <img src={hands[playerChoose]} alt={playerChoose} />
+                    <div className={isShaking ? 'handbox shake' : 'handbox'}>
+                        <img src={isShaking ? hands.rock : hands[playerChoose]} alt={playerChoose} />
                     </div>
                 </div>
             </div>
@@ -79,12 +93,12 @@ function GamePage({ onBack, onFinish }) {
                 <p>Choose your hand!</p>
 
                 <div className="choice-button">
-                    <button disabled={isFinish} onClick={() => setPlayerChoose('rock')}>Rock</button>
-                    <button disabled={isFinish} onClick={() => setPlayerChoose('paper')}>Paper</button>
-                    <button disabled={isFinish} onClick={() => setPlayerChoose('scissors')}>Scissors</button>
+                    <button disabled={isFinish || isShaking} onClick={() => setPlayerChoose('rock')}>Rock</button>
+                    <button disabled={isFinish || isShaking} onClick={() => setPlayerChoose('paper')}>Paper</button>
+                    <button disabled={isFinish || isShaking} onClick={() => setPlayerChoose('scissors')}>Scissors</button>
                 </div>
 
-                <button disabled={isFinish} className="play-button" onClick={HandlePlay}>PLAY!</button>
+                <button disabled={isFinish || isShaking} className="play-button" onClick={handlePlay}>PLAY!</button>
             </div>
 
         </div>
